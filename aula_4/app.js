@@ -28,4 +28,10 @@ app.use((request, response, next) => {
     // Carrega as configurações no Cors da API
     app.use(cors())
     next() // Próximo, carregar os proximos endPoints
-}) 
+})
+
+// ENDPOINTS
+
+app.get('/v1/estados', function(request, response){
+    
+})
