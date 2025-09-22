@@ -64,27 +64,45 @@ const getCapitalBySigla = function (sigla) {
 
 // Retorna os estados referente a uma região pesquisando pela regiao
 const getEstadosByRegiao = function (regiao) {
-    // //mensagem padrão de retorno (cabeçalho)
-    // let message = { status: true, status_code: 200, development: 'Milla Regina Lopes Vieira', uf: [] }
+    //mensagem padrão de retorno (cabeçalho)
+    let message = { status: true, status_code: 200, development: 'Milla Regina Lopes Vieira', regiao: '', estados: [] }
 
-    // let estado = dados.listaDeEstados.estados.find(function (item) {
-    //     return item.regiao.toLowerCase() === sigla.toLowerCase()
-    // })
+    dados.listaDeEstados.estados.forEach(function (item) {
+        if (item.regiao.toLowerCase() === regiao.toLowerCase())
+            message.estados.push({ uf: item.nome, descricao: item.nome })
+    })
 
-    // message.regiao = estado.sigla
-    // message.estados = estado.sigla
-    // message.estados.uf = estado.sigla
-    // message.capital = estado.capital
+    message.regiao = regiao.toUpperCase()
 
-    // if (message.uf.length > 0)
-    //     return message //saída verdadeira (200)
-    // else
-    //     return MESSAGE_ERRO //saída falsa (500)
+    if (message.estados.length > 0)
+        return message //saída verdadeira (200)
+    else
+        return MESSAGE_ERRO //saída falsa (500)
 }
 
 // Retorna uma lista de estados referente as capitais do país
 const getVerifyCapitaisDoPais = function () {
+    //mensagem padrão de retorno (cabeçalho)
+    let message = { status: true, status_code: 200, development: 'Milla Regina Lopes Vieira', capitais: [] }
 
+    dados.listaDeEstados.estados.forEach(function (item) {
+        if (item.capital_pais_ano_inicio) {
+            message.capitais.push({
+                capital_atual: item.capital_atual,
+                uf: item.sigla,
+                descricao: item.descricao,
+                capital: item.capital,
+                regiao: item.regiao,
+                capital_pais_ano_inicio: item.capital_pais_ano_inicio,
+                capital_pais_ano_termino: item.capital_pais_ano_termino
+            })
+        }
+    })
+
+    if (message.capitais.length > 0)
+        return message //saída verdadeira (200)
+    else
+        return MESSAGE_ERRO //saída falsa (500)
 }
 
 // Retorna uma lista de cidades pesquisando pela sigla do estado
@@ -112,5 +130,6 @@ module.exports = {
     getEstadoBySigla,
     getCapitalBySigla,
     getEstadosByRegiao,
+    getVerifyCapitaisDoPais,
     getCidadesBySigla
 }
