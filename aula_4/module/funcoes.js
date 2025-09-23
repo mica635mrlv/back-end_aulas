@@ -86,15 +86,15 @@ const getVerifyCapitaisDoPais = function () {
     let message = { status: true, status_code: 200, development: 'Milla Regina Lopes Vieira', capitais: [] }
 
     dados.listaDeEstados.estados.forEach(function (item) {
-        if (item.capital_pais_ano_inicio) {
+
+        if (item.capital_pais && (item.capital_pais.capital === true || item.capital_pais.ano_inicio)) {
             message.capitais.push({
-                capital_atual: item.capital_atual,
                 uf: item.sigla,
-                descricao: item.descricao,
+                descricao: item.nome,
                 capital: item.capital,
                 regiao: item.regiao,
-                capital_pais_ano_inicio: item.capital_pais_ano_inicio,
-                capital_pais_ano_termino: item.capital_pais_ano_termino
+                capital_pais_ano_inicio: item.capital_pais.ano_inicio,
+                capital_pais_ano_termino: item.capital_pais.ano_fim
             })
         }
     })
